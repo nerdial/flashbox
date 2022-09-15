@@ -23,5 +23,10 @@ Route::get('login', function () {
     return view('login');
 });
 
+Route::middleware('auth')->group(function (){
+    Route::get('app', function () {
+        return view('app');
+    })->name('app');
+});
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
