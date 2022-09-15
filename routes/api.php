@@ -22,33 +22,47 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('app')->group(function () {
 
+        // get current user data
         Route::get('user', [UserController::class, 'currentUser']);
 
+        // admin routes with role permission protection
+        Route::prefix('admin')->group(function () {
 
-        // seller routes
-        Route::prefix('seller')->group(function () {
-            Route::get('products',
-                [SellerController::class,
-                    'getAllProducts']);
-            Route::post('products/create', [SellerController::class,
-                'storeProduct']);
+            Route::middleware('can:add seller')
+                ->get('sellers', [AdminController::class, 'sellerList']);
+
+            Route::middleware('can:list seller')
+                ->post('sellers/create', [AdminController::class,
+                    'storeNewSeller']);
         });
 
 
-        // admin routes
-        Route::prefix('admin/sellers')->group(function () {
-            Route::get('/', [AdminController::class, 'sellerList']);
-            Route::post('create', [AdminController::class,
-                'storeNewSeller']);
-        });
+        // seller routes with role permission protection
+        Route::prefix('seller')
+            ->group(function () {
+
+                Route::middleware('can:list shop product')
+                    ->get('products',
+                        [SellerController::class,
+                            'getAllProducts']);
+
+                Route::middleware('can:add product')
+                    ->post('products/create', [SellerController::class,
+                        'storeProduct']);
+            });
 
 
-        // customer routes
-        Route::prefix('customer')->group(function () {
-            Route::get('products', [CustomerController::class, 'getNearbyProducts']);
-            Route::post('products/purchase/{product}', [CustomerController::class,
-                'purchaseAnItem']);
-        });
+        // customer routes with role permission protection
+        Route::prefix('customer')
+            ->group(function () {
+
+                Route::middleware('can:list product')
+                    ->get('products', [CustomerController::class, 'getNearbyProducts']);
+
+                Route::middleware('can:purchase product')
+                    ->post('products/purchase/{product}', [CustomerController::class,
+                        'purchaseAnItem']);
+            });
 
     });
 });
