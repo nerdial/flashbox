@@ -6,13 +6,15 @@ use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Repositories\ProductRepository;
+use App\Repositories\TransactionRepository;
 
 class CustomerService
 {
 
     public function __construct(
-        private ProductRepository $productRepository,
-        private PaypalGateway     $paypalGateway
+        private ProductRepository     $productRepository,
+        private PaypalGateway         $paypalGateway,
+        private TransactionRepository $transactionRepository
     )
     {
     }
@@ -28,12 +30,7 @@ class CustomerService
     public function purchaseAnItem(Product $product, User $user): Transaction
     {
         $data = $this->paypalGateway->pay();
-        return Transaction::create([
-            'user_id' => $user->id,
-            'product_id' => $product->id,
-            'amount' => $product->price,
-            'metadata' => $data
-        ]);
+        return $this->transactionRepository->createNewTransaction($product, $user, $data);
     }
 
 }

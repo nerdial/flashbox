@@ -9,6 +9,8 @@ class PaypalGateway implements Gateway
     public function pay() :array
     {
         // gateway data
-        return [];
+        return [
+            'tracking_number' => '123456'
+        ];
     }
 }

@@ -57,11 +57,12 @@ Route::middleware('auth:sanctum')->group(function () {
             ->group(function () {
 
                 Route::middleware('can:list product')
-                    ->get('products', [CustomerController::class, 'getNearbyProducts']);
+                    ->get('products', [CustomerController::class, 'getNearbyProducts'])
+                    ->name('customer.product.list');
 
                 Route::middleware('can:purchase product')
                     ->post('products/purchase/{product}', [CustomerController::class,
-                        'purchaseAnItem']);
+                        'purchaseAnItem'])->name('customer.product.purchase');
             });
 
     });
