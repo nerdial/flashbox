@@ -29,7 +29,7 @@ class ProductRepository
          * cos( radians( lng ) - radians(?) ) + sin( radians(?) ) * sin(radians(lat)) ) ) AS distance ',
             [$lat, $lng, $lat]
         )
-            ->having('distance', '<', 20) // 30 miles
+            ->having('distance', '<', 20) // 20 miles
             ->pluck('id');
 
         return Product::select([
