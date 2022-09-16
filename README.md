@@ -7,6 +7,7 @@
 4. Users can find their nearest products and buy them
 5. Unit test
 6. Vue components
+7. CI/CD GitHub Action
 
 
 ### Clone the project and run composer
