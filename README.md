@@ -16,12 +16,36 @@
 composer install
 ```
 
+### Create .env file 
+
+```console
+cp .env.example .env
+```
+
+### Create application key
+
+```console
+php artisan key:generate
+```
+
+## This project also contains unit tests for apis
+
+```console
+php artisan test
+```
+
+### Npm install and build manifest
+```console
+npm install && npm run build
+```
 
 ### Run this command to create admin, roles & permissions , customer and seller:
 
 ```console
 php artisan migrate --seed
 ```
+
+
 
 #### Then try these for login :
 
@@ -37,13 +61,6 @@ php artisan migrate --seed
 
 ```
 
-
-
-## This project also contains unit tests for apis
-
-```console
-php artisan test
-```
 
 
 
