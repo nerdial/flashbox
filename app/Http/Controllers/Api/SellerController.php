@@ -17,8 +17,8 @@ class SellerController extends Controller
 
     public function getAllProducts(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $shop = $this->productRepository->getSellerProducts($request->user());
-        return ProductResource::collection($shop->products);
+        $products = $this->productRepository->getSellerProducts($request->user());
+        return ProductResource::collection($products);
     }
 
     public function storeProduct(StoreProductRequest $request): \Illuminate\Http\JsonResponse

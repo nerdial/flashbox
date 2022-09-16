@@ -10,7 +10,7 @@ class SellerRepository
 
     public function getAllSellers()
     {
-        return User::role('seller')->get()->load('shop');
+        return User::role('seller')->latest()->get()->load('shop');
     }
 
     public function createNewSeller(array $data)

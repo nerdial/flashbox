@@ -12,7 +12,7 @@ class ProductRepository
 
     public function getSellerProducts(User $user)
     {
-        return $user->shop;
+        return Product::where('shop_id', $user->shop->id)->latest()->get();
     }
 
     public function createNewProduct(array $data, User $user): Product
@@ -28,7 +28,7 @@ class ProductRepository
         return Product::select([
             'id', 'title', 'description', 'price', 'shop_id'
         ])->
-        whereIn('shop_id', $shopIds)->with('shop:title,id')->get();
+        whereIn('shop_id', $shopIds)->latest()->with('shop:title,id')->get();
 
     }
 
