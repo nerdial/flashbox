@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 class SellerRepository
 {
 
+    public function getAllSellers()
+    {
+        return User::role('seller')->get()->load('shop');
+    }
+
     public function createNewSeller(array $data)
     {
         DB::transaction(function () use ($data) {
@@ -18,6 +23,7 @@ class SellerRepository
                 'email' => $data['email']
             ]);
             $user->assignRole('seller');
+            $user->createToken('vueApp');
             $user->shop()->create([
                 'title' => $data['shopTitle'],
                 'lat' => $data['lat'],

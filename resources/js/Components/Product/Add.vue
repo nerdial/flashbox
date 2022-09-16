@@ -20,14 +20,18 @@ async function createNewProduct(event) {
             'http://localhost:8000/api/app/seller/products/create',
             product
         )
-        this.$router.push({
-            name: 'seller.products'
-        });
+        resetForm()
+        alert('Product has been created')
     } catch (e) {
         displayErrors(e.response.data.errors)
     }
 }
 
+function resetForm() {
+    product.description = ''
+    product.title = ''
+    product.price = 0
+}
 
 function resetError() {
     errors.hasError = false

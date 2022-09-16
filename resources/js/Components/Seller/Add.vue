@@ -1,6 +1,8 @@
 <script setup>
 import {reactive} from 'vue'
 
+
+
 const errors = reactive({
     hasError: false,
     list: []
@@ -9,7 +11,7 @@ const errors = reactive({
 const seller = reactive({
     name: '',
     email: '',
-    address : '',
+    address: '',
     password: '',
     shopTitle: '',
     lat: 0,
@@ -20,13 +22,13 @@ async function createNewSeller(event) {
 
     resetError()
     try {
-        await axios.post(
+        axios.post(
             'http://localhost:8000/api/app/admin/sellers/create',
             seller
         )
-        this.$router.push({
-            name : 'seller.products'
-        });
+        resetForm()
+        alert('Seller has been created')
+
     } catch (e) {
         displayErrors(e.response.data.errors)
     }
@@ -36,6 +38,16 @@ async function createNewSeller(event) {
 function resetError() {
     errors.hasError = false
     errors.list = []
+}
+
+function resetForm() {
+    seller.email = ''
+    seller.address = ''
+    seller.name = ''
+    seller.lat = 0
+    seller.lng = 0
+    seller.shopTitle = ''
+    seller.password = ''
 }
 
 function displayErrors(list) {
@@ -57,12 +69,12 @@ function displayErrors(list) {
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
-                <input v-model="seller.email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                <input v-model="seller.email" type="email" class="form-control" id="inputEmail4">
             </div>
             <div class="form-group col-md-6">
                 <label for="inputPassword4">Password</label>
                 <input v-model="seller.password" type="password" class="form-control" id="inputPassword4"
-                       placeholder="Password">
+                       >
             </div>
         </div>
         <div class="form-group col-md-6">
