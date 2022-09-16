@@ -52,7 +52,7 @@ onMounted(async () => {
                     }">All Nearby Products</router-link>
                 </div>
 
-                <router-link style="margin-left: 20px" to="sellers">Logout</router-link>
+                <a style="margin-left: 20px" href="/">Logout</a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
