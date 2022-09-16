@@ -60,7 +60,7 @@ function displayErrors(list) {
             <input v-model="product.title" type="text" class="form-control" id="inputAddress" placeholder="">
         </div>
         <div class="form-group col-md-6">
-            <label for="inputAddress2">Shop Name</label>
+            <label for="inputAddress2">Description</label>
             <input v-model="product.description" type="text" class="form-control" id="inputAddress2">
         </div>
         <div class="form-row">

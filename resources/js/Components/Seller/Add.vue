@@ -22,7 +22,7 @@ async function createNewSeller(event) {
 
     resetError()
     try {
-        axios.post(
+       await axios.post(
             'http://localhost:8000/api/app/admin/sellers/create',
             seller
         )
