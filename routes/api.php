@@ -23,17 +23,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('app')->group(function () {
 
         // get current user data
-        Route::get('user', [UserController::class, 'currentUser']);
+        Route::get('user', [UserController::class, 'currentUser'])->name('currentUser');
 
         // admin routes with role permission protection
         Route::prefix('admin')->group(function () {
 
             Route::middleware('can:add seller')
-                ->get('sellers', [AdminController::class, 'sellerList']);
+                ->get('sellers', [AdminController::class, 'sellerList'])->name('admin.seller.list');
 
             Route::middleware('can:list seller')
                 ->post('sellers/create', [AdminController::class,
-                    'storeNewSeller']);
+                    'storeNewSeller'])->name('admin.seller.create');
         });
 
 

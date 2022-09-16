@@ -29,8 +29,8 @@ class StoreSellerRequest extends FormRequest
             'address' => 'required|string',
             'email'   => 'required|email|unique:users',
             'password'  => 'required|min:6',
-            'lng'  => 'required|numeric|min:1',
-            'lat'  => 'required|numeric|min:1',
+            'lat' => 'required|between:-90,90',
+            'lng' => 'required|between:-180,180'
         ];
     }
 }

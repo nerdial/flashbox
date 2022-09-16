@@ -5,25 +5,27 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSellerRequest;
 use App\Http\Resources\SellerResource;
-use App\Models\User;
 use App\Repositories\SellerRepository;
 
 class AdminController extends Controller
 {
 
-    public function sellerList()
+    public function __construct(
+        private SellerRepository $sellerRepository
+    )
     {
-        $sellers = User::role('seller')->limit(10)->get()->load('shop');
+    }
+
+    public function sellerList(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $sellers = $this->sellerRepository->getAllSellers();
         return SellerResource::collection($sellers);
     }
 
-    public function storeNewSeller(
-        StoreSellerRequest $request,
-        SellerRepository   $repository
-    )
+    public function storeNewSeller(StoreSellerRequest $request): \Illuminate\Http\JsonResponse
     {
         $data = $request->validated();
-        $repository->createNewSeller($data);
+        $this->sellerRepository->createNewSeller($data);
 
         return response()->json([
             'success' => true

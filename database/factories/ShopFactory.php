@@ -17,7 +17,12 @@ class ShopFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->randomAscii()
+                . $this->faker->randomAscii()
+                . $this->faker->randomAscii(),
+            'address' => $this->faker->address,
+            'lat' => $this->faker->latitude,
+            'lng' => $this->faker->longitude
         ];
     }
 }
