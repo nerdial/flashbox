@@ -24,7 +24,14 @@ class ProductRepository
 
     public function getNearestProducts($lat, $lng)
     {
-        $shopIds = Shop::select('id')->closestTo($lat, $lng)->pluck('id');
+
+        $shopIds = Shop::selectRaw('id, ( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) )
+         * cos( radians( lng ) - radians(?) ) + sin( radians(?) ) * sin(radians(lat)) ) ) AS distance ',
+            [$lat, $lng, $lat]
+        )
+            ->having('distance', '<', 20) // 30 miles
+            ->pluck('id');
+
         return Product::select([
             'id', 'title', 'description', 'price', 'shop_id'
         ])->

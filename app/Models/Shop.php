@@ -20,12 +20,4 @@ class Shop extends Model
     {
         return $this->hasMany(Product::class);
     }
-
-
-    public function scopeClosestTo($query, $lat, $lng)
-    {
-        return $query->orderByRaw(
-            '(3959 * acos(cos(radians(' . floatval($lat) . ')) * cos(radians(lat)) * cos(radians(lng) - radians(' . floatval($lng) . ')) + sin(radians(' . intval($lat) . ')) * sin(radians(lat)))) ASC'
-        );
-    }
 }
