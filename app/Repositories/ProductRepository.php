@@ -4,10 +4,17 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Models\Shop;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class ProductRepository
 {
+
+    public function createNewProduct(array $data, User $user): Product
+    {
+        $shopId = $user->shop->id;
+        $newProduct = $data + ['shop_id' => $shopId];
+        return Product::create($newProduct);
+    }
 
     public function getNearestProducts($lat, $lng)
     {
