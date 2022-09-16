@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->decimal('lat')->nullable();
-            $table->decimal('lng')->nullable();
+            $table->decimal('lat', 20)->nullable();
+            $table->decimal('lng', 20)->nullable();
             $table->foreignIdFor(\App\Models\User::class);
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('description');
-            $table->decimal('price');
+            $table->decimal('price', 20);
             $table->foreignIdFor(\App\Models\Shop::class);
             $table->timestamps();
         });

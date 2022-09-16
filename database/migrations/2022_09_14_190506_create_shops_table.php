@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('address')->nullable();
-            $table->decimal('lat');
-            $table->decimal('lng');
+            $table->decimal('lat', 20);
+            $table->decimal('lng', 20);
             $table->foreignIdFor(\App\Models\User::class,'seller_id');
             $table->timestamps();
         });
