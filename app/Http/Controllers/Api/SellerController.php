@@ -10,15 +10,20 @@ use Illuminate\Http\Request;
 
 class SellerController extends Controller
 {
-    public function getAllProducts(Request $request)
+
+    public function __construct(private ProductRepository $productRepository)
     {
-        $shop = $request->user()->shop;
+    }
+
+    public function getAllProducts(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $shop = $this->productRepository->getSellerProducts($request->user());
         return ProductResource::collection($shop->products);
     }
 
-    public function storeProduct(StoreProductRequest $request, ProductRepository $repository)
+    public function storeProduct(StoreProductRequest $request): \Illuminate\Http\JsonResponse
     {
-        $repository->createNewProduct($request->validated(), $request->user());
+        $this->productRepository->createNewProduct($request->validated(), $request->user());
         return response()->json([
             'status' => true
         ], 201);

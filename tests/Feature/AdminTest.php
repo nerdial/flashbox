@@ -38,7 +38,7 @@ class AdminTest extends TestCase
 
     }
 
-    public function test_admin_gets_seller_list_without_roles_and_permissions()
+    public function test_admin_failed_getting_seller_list_without_roles_and_permissions()
     {
 
         $url = route('admin.seller.list');
@@ -48,7 +48,7 @@ class AdminTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_admin_creates_seller_without_roles_and_permissions()
+    public function test_admin_failed_creating_seller_without_roles_and_permissions()
     {
 
         $url = route('admin.seller.create');
@@ -58,7 +58,7 @@ class AdminTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_admin_gets_seller_list_with_wrong_role()
+    public function test_admin_failed_getting_seller_list_with_wrong_role()
     {
 
         $url = route('admin.seller.list');
@@ -69,6 +69,19 @@ class AdminTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    public function test_admin_failed_creating_seller_with_wrong_role()
+    {
+
+        $url = route('admin.seller.create');
+
+        $this->user->assignRole('seller');
+
+        $response = $this->post($url,[]);
+
+        $response->assertStatus(403);
+    }
+
 
     public function test_admin_gets_all_sellers()
     {
@@ -141,7 +154,7 @@ class AdminTest extends TestCase
         $this->assertEquals('seller', $role);
     }
 
-    public function test_admin_creates_new_seller_with_wrong_data()
+    public function test_admin_failed_creating_seller_with_wrong_data()
     {
 
         $url = route('admin.seller.create');

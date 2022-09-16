@@ -44,11 +44,11 @@ Route::middleware('auth:sanctum')->group(function () {
                 Route::middleware('can:list shop product')
                     ->get('products',
                         [SellerController::class,
-                            'getAllProducts']);
+                            'getAllProducts'])->name('seller.product.list');
 
                 Route::middleware('can:add product')
                     ->post('products/create', [SellerController::class,
-                        'storeProduct']);
+                        'storeProduct'])->name('seller.product.create');
             });
 
 
